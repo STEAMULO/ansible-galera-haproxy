@@ -10,3 +10,6 @@ galera_nodes_mysqlchk_port: "9200"
 
 # haproxy bind address
 haproxy_bind_address: "0.0.0.0:3306"
+
+# client and server conn timeout
+haproxy_conn_timeout: "500s"

@@ -21,9 +21,9 @@ defaults
   option  tcplog
   option redispatch
   maxconn 2000
-  contimeout 5000
-  clitimeout 50000
-  srvtimeout 50000
+  timeout contimeout 5000
+  timeout client {{ haproxy_conn_timeout }}
+  timeout server {{ haproxy_conn_timeout }}
 
 listen mysql-cluster {{ haproxy_bind_address }}
   mode tcp
