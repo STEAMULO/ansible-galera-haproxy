@@ -1,5 +1,23 @@
----
-# file: tasks/main.yml
+- name: Install HA Proxy 
+  apt:
+    update_cache: yes
+    name: haproxy
+    state: present
 
-- include: configure_haproxy.yml
-- include: install_haproxy.yml
+- name: Configure haproxy for Galera Cluster 
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify:
+    - restart haproxy
+    - restart rsyslog
+
+- name: Configure init script haproxy
+  lineinfile:
+    dest: /etc/default/haproxy
+    regexp: "^ENABLED="
+    line: "ENABLED=1"
+    state: present
+  notify: 
+    - restart haproxy
+    - restart rsyslog

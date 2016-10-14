@@ -1,2 +1,12 @@
----
-# file: vars/main.yml
+
+# list of galera node
+galera_nodes: []
+
+# mysql port of galera node
+galera_nodes_mysql_port: "3306"
+
+# mysqlchk port of galera node
+galera_nodes_mysqlchk_port: "9200"
+
+# haproxy bind address
+haproxy_bind_address: "0.0.0.0:3306"

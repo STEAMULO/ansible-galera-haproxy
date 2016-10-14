@@ -1,0 +1,38 @@
+# this config needs haproxy-1.4.20
+
+global
+  log /dev/log local0
+  log /dev/log local1 notice
+  chroot /var/lib/haproxy
+  user haproxy
+  group haproxy
+  daemon
+  stats timeout 30s
+  spread-checks   5
+  maxconn 4096
+  #debug
+  #quiet
+
+defaults
+  log     global
+  mode    http
+  retries 3
+  option dontlognull
+  option  tcplog
+  option redispatch
+  maxconn 2000
+  contimeout 5000
+  clitimeout 50000
+  srvtimeout 50000
+
+listen mysql-cluster {{ haproxy_bind_address }}
+  mode tcp
+  balance roundrobin
+  option httpchk
+  {% set count = 1 %}
+  {% for node in galera_nodes %}
+  server galera{{ count }} {{ node }}:{{ galera_nodes_mysql_port }} check port {{ galera_nodes_mysqlchk_port }} inter 12000 rise 3 fall 3
+
+  {% set count = count + 1 %}
+  {% endfor %}
+

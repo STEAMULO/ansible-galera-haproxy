@@ -1,10 +1,10 @@
----
-# file: handlers/main.yml
-- name: start haproxy 
-  command: /etc/init.d/haproxy start 
 
 - name: restart haproxy 
-  command:  /etc/init.d/haproxy restart 
+  service:
+    name: haproxy
+    state: restarted
 
-- name: stop haproxy 
-  command:  /etc/init.d/haproxy stop 
+- name: restart rsyslog 
+  service:
+    name: rsyslog
+    state: restarted
