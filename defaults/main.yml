@@ -13,3 +13,9 @@ haproxy_bind_address: "0.0.0.0:3306"
 
 # client and server conn timeout
 haproxy_conn_timeout: "500s"
+
+# admin url
+ha_proxy_admin: false
+haproxy_admin_host: "0.0.0.0"
+haproxy_admin_port: 22002
+haproxy_admin_uri: /stats

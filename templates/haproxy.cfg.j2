@@ -36,3 +36,9 @@ listen mysql-cluster {{ haproxy_bind_address }}
   {% set count = count + 1 %}
   {% endfor %}
 
+
+{% if ha_proxy_admin %}
+listen admin {{ haproxy_admin_host }}:{{ haproxy_admin_port }}
+  mode http
+  stats uri {{ haproxy_admin_uri }}
+{% endif %}
